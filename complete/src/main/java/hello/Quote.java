@@ -5,7 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.util.ObjectUtils;
 
 import lombok.Data;
-
+/**
+ * @Description: 
+ * @Param: 
+ * @return: 
+ * @Author: XiaoShuMu
+ * @Date: 2021/11/6
+ */
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 @SuppressWarnings("unused")
