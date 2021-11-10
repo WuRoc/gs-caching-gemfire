@@ -153,8 +153,8 @@ constantly looking up the same data, caching the results can improve your perfor
 [[executable]]
 == Make the application executable
 
-Although {apache-geode-name} caching can be embedded in web apps and WAR files, the simpler approach demonstrated below
-creates a standalone application. You package everything in a single, executable JAR file, driven by a good old Java
+Although {apache-geode-name} caching can be embedded in (嵌入) web apps and WAR files, the simpler approach (方法) demonstrated (展示了) below (以下)
+creates a standalone application. You package everything in a single, executable JAR file, driven (被驱动) by a good old Java
 `main()` method.
 
 `src/main/java/hello/Application.java`

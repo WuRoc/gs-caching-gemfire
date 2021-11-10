@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * @ClassName QuoteResponse
- * @Description 这两个类都标有@JsonIgnoreProperties(ignoreUnknown=true)。这意味着即使可以检索其他 JSON 属性，它们也会被忽略。
+ * @Description 这两个类都标有 @JsonIgnoreProperties(ignoreUnknown=true)。这意味着即使可以检索其他 JSON 属性，它们也会被忽略。
  * @Author XiaoShuMu
  * @Version 1.0
  * @Create 2021-11-06 10:53

@@ -25,11 +25,13 @@ public class Application {
 
 	@Bean
 	ApplicationRunner runner(QuoteService quoteService) {
-
-		return args -> {
+		//这个 return 后面的值与上面的args无关
+		return arg -> {
 			Quote quote = requestQuote(quoteService, 12L);
 			requestQuote(quoteService, quote.getId());
-			requestQuote(quoteService, 10L);
+			Quote quotes = requestQuote(quoteService, 10L);
+			requestQuote(quoteService, quotes.getId());
+			requestQuote(quoteService, 11L);
 		};
 	}
 
@@ -42,7 +44,7 @@ public class Application {
 			.orElseGet(quoteService::requestRandomQuote);
 
 		long elapsedTime = System.currentTimeMillis();
-
+		//%1对应后面的第一个值，%2对应后面的第二个值
 		System.out.printf("\"%1$s\"%nCache Miss [%2$s] - Elapsed Time [%3$s ms]%n", quote,
 			quoteService.isCacheMiss(), (elapsedTime - startTime));
 

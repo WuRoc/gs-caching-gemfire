@@ -13,9 +13,18 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class QuoteService {
 
-	protected static final String ID_BASED_QUOTE_SERVICE_URL = "http://gturnquist-quoters.cfapps.io/api/{id}";
-	protected static final String RANDOM_QUOTE_SERVICE_URL = "http://gturnquist-quoters.cfapps.io/api/random";
+//	protected static final String ID_BASED_QUOTE_SERVICE_URL = "http://gturnquist-quoters.cfapps.io/api/{id}";
+//	protected static final String RANDOM_QUOTE_SERVICE_URL = "https://gturnquist-quoters.cfapps.io/api/random";
+    protected static final String ID_BASED_QUOTE_SERVICE_URL = "https://quoters.apps.pcfone.io/api/{id}";
+	protected static final String RANDOM_QUOTE_SERVICE_URL = "https://quoters.apps.pcfone.io/api/random";
 
+	/**
+	 * @Description: 这里没有加锁，volatile只能确保可见性
+	 * @Param:
+	 * @return:
+	 * @Author: XiaoShuMu
+	 * @Date: 2021/11/9
+	 */
 	private volatile boolean cacheMiss = false;
 
 	private final RestTemplate quoteServiceTemplate = new RestTemplate();
@@ -44,6 +53,7 @@ public class QuoteService {
 	@Cacheable("Quotes")
 	public Quote requestQuote(Long id) {
 		setCacheMiss();
+		//这里的是带有id的
 		return requestQuote(ID_BASED_QUOTE_SERVICE_URL, Collections.singletonMap("id", id));
 	}
 
@@ -59,6 +69,7 @@ public class QuoteService {
 	}
 
 	protected Quote requestQuote(String URL) {
+		//这里是空的map，根据参数进行重载
 		return requestQuote(URL, Collections.emptyMap());
 	}
 

@@ -21,14 +21,24 @@ import java.util.Optional;
 @Service
 public class QuoteService {
 
-    protected static final String ID_BASED_QUOTE_SERVICE_URL = "http://gturnquist-quoters.cfapps.io/api/{id}";
+//    protected static final String ID_BASED_QUOTE_SERVICE_URL = "http://gturnquist-quoters.cfapps.io/api/{id}";
+//
+//    protected static final String RANDOM_QUOTE_SERVICE_URL = "http://gturnquist-quoters.cfapps.io/api/random";
 
-    protected static final String RANDOM_QUOTE_SERVICE_URL = "http://hturnquist-quoters.cfapps.io/api/random";
+    protected static final String ID_BASED_QUOTE_SERVICE_URL = "https://quoters.apps.pcfone.io/api/{id}";
+    protected static final String RANDOM_QUOTE_SERVICE_URL = "https://quoters.apps.pcfone.io/api/random";
 
     private volatile boolean cacheMiss = false;
 
     private final RestTemplate quoteServiceTemplate = new RestTemplate();
-
+    
+    /**
+     * @Description: Determines whether the previous service method invocation resulted in a cache miss.
+     * @Param: []
+     * @return: boolean 一个布尔值，指示先前的服务方法调用是否导致缓存未命中。
+     * @Author: XiaoShuMu
+     * @Date: 2021/11/8
+     */
     public boolean isCacheMiss() {
         boolean cacheMiss = this.cacheMiss;
         this.cacheMiss = false;
@@ -41,7 +51,7 @@ public class QuoteService {
 
 
     /**
-     * @Description: @Cacheable("Quotes") 表示可以缓存调用方法（或类中的所有方法）的结果的注解。
+     * @Description: @Cacheable("Quotes") 表示可以缓存调用方法（或类中的所有方法）的结果的注解。请求带有给定标识符的Quotes
      * @Param: [id]
      * @return: hello.Quote
      * @Author: XiaoShuMu
@@ -49,11 +59,17 @@ public class QuoteService {
      */
     @Cacheable("Quotes")
     public Quote requestQuote(Long id) {
-
         setCacheMiss();
         return requestQuote(ID_BASED_QUOTE_SERVICE_URL, Collections.singletonMap("id", id));
     }
 
+    /**
+     * @Description: 要求随机quote。这里的key指定key是id
+     * @Param: []
+     * @return: hello.Quote 一个随机的 {@link Quote}
+     * @Author: XiaoShuMu
+     * @Date: 2021/11/8
+     */
     @CachePut(cacheNames = "Quotes", key = "#result.id")
     public Quote requestRandomQuote() {
         setCacheMiss();
